@@ -1,0 +1,451 @@
+/* CSS propio del sitio (static) */
+:root {
+    /* Paleta de Colores */
+    --primary-color: #e57a23;
+    --primary-dark: #70045a;
+    /* Versión más oscura para hover/active */
+    --primary-glow: #d21ec3;
+    --bg-cafe: #75441c;
+
+    /* Textos y Accesibilidad */
+    --text-dark: #212529;
+    /* Negro suave para texto principal */
+    --text-muted: #4a4a4a;
+    /* Gris oscuro (antes era muy claro) para cumplir WCAG AA */
+    --light-overlay: rgba(255, 255, 255, 0.9);
+
+    /* Animaciones */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- ESTILOS GENERALES --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Google Sans", sans-serif;
+    /* font-family: "Belleza", sans-serif; */
+    /* font-weight: bolder; */
+    /* Nota: Poiret One es una fuente fina, el bolder ayuda a la legibilidad */
+    font-style: normal;
+    color: var(--text-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    /* Hace que la fuente se vea más nítida en Mac/iOS */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: var(--transition-smooth);
+}
+
+/* Mejora de Accesibilidad: Indicador de foco para navegación con teclado */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+    outline: 3px solid var(--primary-glow);
+    outline-offset: 2px;
+}
+
+/* Clases de utilidad de fondo */
+.bg-cafe {
+    background-color: var(--bg-cafe);
+    color: white;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ajuste para páginas internas */
+.hero-internal {
+    height: 60vh !important;
+    min-height: 400px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    /* Aumenté la opacidad (0.5 -> 0.7) para mejorar lectura de texto sobre imagen */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Sombra de texto para mayor contraste */
+}
+
+/* --- ANIMACIONES --- */
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- NAVBAR --- */
+.navbar-custom {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- CARDS & FEATURES --- */
+.feature-card {
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-glow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+/* --- GALLERY --- */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    aspect-ratio: 1;
+    background-color: #000;
+    /* Fondo negro por si falla la imagen */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+    opacity: 0.8;
+    /* Oscurecer levemente la imagen al hover */
+}
+
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    /* Gradiente más fuerte para asegurar legibilidad del título */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+}
+
+.gallery-item:focus-within .gallery-overlay,
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-title {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* Detalles de Galería (Página Interna) */
+.main-gallery-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.thumb-img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    opacity: 0.7;
+    /* Aumentado de 0.6 para mejor visibilidad */
+    transition: all 0.3s ease;
+}
+
+.thumb-img:hover,
+.thumb-img.active {
+    opacity: 1;
+    border: 3px solid var(--primary-color);
+    /* Borde más grueso para claridad */
+}
+
+/* --- COMPONENTS: ICONS & MAPS --- */
+.location-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    /* Fondo suave para el icono */
+}
+
+.map-container {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+.history-img {
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 300px;
+}
+
+/* --- BOTONES FLOTANTES --- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    width: 56px;
+    height: 56px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    transition: var(--transition-smooth);
+}
+
+.whatsapp-float:hover,
+.whatsapp-float:focus {
+    background-color: #1da851;
+    transform: scale(1.1);
+    color: white;
+}
+
+.arriba {
+    position: fixed;
+    bottom: 40px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Fondo añadido para contraste */
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- BOTONES (Bootstrap Overrides) --- */
+.btn {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-radius: 50rem;
+}
+
+.btn-outline-light {
+    border-width: 2px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(18, 128, 47, 0.3);
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.show>.btn-primary.dropdown-toggle {
+    background-color: white !important;
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-width: 2px;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    border-color: white;
+}
+
+/* --- CABIN CARDS --- */
+.cabin-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Borde sutil para definición */
+    border-radius: 1rem;
+    /* Asegurar radio de borde */
+}
+
+.cabin-card:hover,
+.cabin-card:focus-within {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.cabin-card img {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    width: 100%;
+    /* Asegura ancho completo */
+}
+
+.cabin-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Badge unificado */
+.capacity-badge {
+    background-color: rgba(18, 128, 47, 0.15);
+    /* Fondo un poco más oscuro para contraste */
+    color: var(--primary-dark);
+    /* Texto más oscuro para legibilidad */
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(18, 128, 47, 0.2);
+}
+
+/* --- LISTAS Y AMENIDADES --- */
+.amenity-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.amenity-list li {
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    /* Color optimizado para contraste */
+    font-weight: 600;
+}
+
+.amenity-list i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    min-width: 24px;
+    /* Alineación consistente */
+    text-align: center;
+}
+
+/* Cards de sugerencias */
+.suggestion-card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.suggestion-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* --- ESTILOS DEL FOOTER --- */
+footer .bg-cafe {
+    background-color: var(--bg-cafe, #420101);
+    /* Usa tu variable o el color fijo */
+}
+
+/* Corregir el menú dentro del footer */
+.footer-links ul li {
+    margin-bottom: 0.5rem;
+    /* Espacio entre items */
+}
+
+/* Sobrescribir estilos de Bootstrap Nav para el footer */
+.footer-links .nav-link {
+    padding: 0 !important;
+    /* Quitar padding de botón */
+    color: rgba(255, 255, 255, 0.5) !important;
+    /* Color grisáceo/blanco */
+    font-weight: normal;
+    display: inline-block;
+}
+
+.footer-links .nav-link:hover {
+    color: #ffffff !important;
+    /* Blanco brillante al pasar el mouse */
+    text-decoration: underline !important;
+}
+
+/* Clase activa en el footer (opcional, si quieres que se marque dónde estás) */
+.footer-links .nav-link.active {
+    color: #ffffff !important;
+    font-weight: bold;
+}
